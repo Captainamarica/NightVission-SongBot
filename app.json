@@ -1,35 +1,62 @@
 {
-    "name": "Night Vission Song Bot",
-    "description": "Song Bot Bot",
-    "repository": "https://github.com/Captainamarica/NightVission-SongBot",
-    "logo": "https://te.legra.ph/file/354bee41b0089d9f3c621.jpg",
-    "keywords": ["pyrogram",
-                 "pyro",
-                 "telegram",
-                 "telebot"],
-    "env": {
-        "BOT_TOKEN": {
-            "description": "Your Bot token from @Botfather",
-            "value": ""
-        },
-        "API_ID": {
-            "description": "Your API_ID from https://my.telegram.org/apps ",
-        },
-        "API_HASH": {
-            "description": "Your API_HASH from https://my.telegram.org/apps",
-            "value": ""
-        }
+  "name": "SongBot",
+  "description": "SongBots.",
+  "keywords": [
+    "productivity",
+    "HTML5",
+    "scalpel"
+  ],
+  "website": "https://github.com/Captainamarica/NightVission-SongBot",
+  "repository": "https://github.com/Captainamarica/NightVission-SongBot",
+  "logo": "https://te.legra.ph/file/354bee41b0089d9f3c621.jpg",
+  "success_url": "/welcome",
+  "scripts": {
+    "postdeploy": "bundle exec rake bootstrap"
+  },
+  "env": {
+    "TGBOT_TOKEN": {
+      "description": "A secret key for verifying the integrity of signed cookies.",
+      "value": ""
     },
-    "stack": "heroku-20",
-    "buildpacks": [
-        {
-            "url": "heroku/python"
-        }
-    ],
-    "formation": {
-        "worker": {
-            "quantity": 1,
-            "size": "free"
-        }
+    "API_HASH": {
+      "description": "The number of processes to run.",
+      "value": ""
+    },
+      "API_ID": {
+      "description": "A secret key for verifying the integrity of signed cookies.",
+      "value": ""
     }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "standard-1x"
+    }
+  },
+  "image": "heroku/ruby",
+  "addons": [
+    "openredis",
+    {
+      "plan": "mongolab:shared-single-small",
+      "as": "MONGO"
+    },
+    {
+      "plan": "heroku-postgresql",
+      "options": {
+        "version": "9.5"
+      }
+    }
+  ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/stomita/heroku-buildpack-phantomjs"
+    }
+  ],
+  "environments": {
+    "test": {
+      "scripts": {
+        "test": "bundle exec rake test"
+      }
+    }
+  }
 }
